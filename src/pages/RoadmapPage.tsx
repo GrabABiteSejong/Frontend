@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import './RoadmapPage.css';
 
 type StudentStatus = '재학' | '입학예정' | null;
-type Step = 1 | 2 | 3;
+type Step = 1 | 2 | 3 | 4;
 
 // 계열별 세부 전공 매핑
 const majorDetailsMap: Record<string, string[]> = {
@@ -22,6 +22,7 @@ export function RoadmapPage() {
     const [selectedMajor, setSelectedMajor] = useState<string | null>(null);
     const [selectedDetailMajor, setSelectedDetailMajor] = useState<string | null>(null);
     const [selectedGrade, setSelectedGrade] = useState<string | null>(null);
+    const [selectedMajorDecision, setSelectedMajorDecision] = useState<string | null>(null);
     const [uploadedFile, setUploadedFile] = useState<File | null>(null);
     const [isTransitioning, setIsTransitioning] = useState(false);
 
@@ -37,7 +38,7 @@ export function RoadmapPage() {
 
         // 4초 후 버튼 표시
         const timer2 = setTimeout(() => {
-            console.log('3초 경과 - 버튼 표시');
+            console.log('4초 경과 - 버튼 표시');
             setShowButtons(true);
         }, 4000);
 
@@ -93,8 +94,20 @@ export function RoadmapPage() {
                 // 다음 단계로 이동
                 // navigate('/next-step');
             } else if (selectedStatus === '재학' && selectedGrade) {
-                console.log('업로드된 파일:', uploadedFile?.name);
-                console.log('선택된 학년:', selectedGrade);
+                // 재학생: 학년 선택 후 4단계로 이동
+                setIsTransitioning(true);
+                setTimeout(() => {
+                    setStep(4);
+                    setIsTransitioning(false);
+                }, 800);
+            }
+        } else if (step === 4) {
+            if (selectedStatus === '재학' && selectedGrade === '1학년' && selectedMajorDecision) {
+                console.log('1학년 - 선택된 전공 결정 상태:', selectedMajorDecision);
+                // 다음 단계로 이동
+                // navigate('/next-step');
+            } else if (selectedStatus === '재학' && selectedGrade !== '1학년' && selectedMajor) {
+                console.log('2/3/4학년 - 선택된 계열:', selectedMajor);
                 // 다음 단계로 이동
                 // navigate('/next-step');
             }
@@ -111,6 +124,10 @@ export function RoadmapPage() {
 
     const handleGradeSelect = (grade: string) => {
         setSelectedGrade(grade);
+    };
+
+    const handleMajorDecisionSelect = (decision: string) => {
+        setSelectedMajorDecision(decision);
     };
 
     const handleFileUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -189,8 +206,20 @@ export function RoadmapPage() {
             )}
 
             {step === 3 && selectedStatus === '재학' && (
-                <div className={`roadmap-main-text-new ${!isTransitioning ? 'fade-in' : ''}`}>
+                <div className={`roadmap-main-text-new ${!isTransitioning ? 'fade-in' : ''} ${isTransitioning ? 'fade-out' : ''}`}>
                     현재 학년을 선택해주세요.
+                </div>
+            )}
+
+            {step === 4 && selectedStatus === '재학' && selectedGrade === '1학년' && (
+                <div className={`roadmap-main-text-new ${!isTransitioning ? 'fade-in' : ''}`}>
+                    해당하는 부분을 선택하세요
+                </div>
+            )}
+
+            {step === 4 && selectedStatus === '재학' && selectedGrade !== '1학년' && (
+                <div className={`roadmap-main-text-new ${!isTransitioning ? 'fade-in' : ''}`}>
+                    재학 중인 계열을 선택하세요
                 </div>
             )}
 
@@ -327,7 +356,7 @@ export function RoadmapPage() {
 
             {/* 3단계: 재학중 - 학년 선택 */}
             {step === 3 && selectedStatus === '재학' && (
-                <div className={`status-buttons-container ${!isTransitioning ? 'fade-in' : ''}`}>
+                <div className={`status-buttons-container ${!isTransitioning ? 'fade-in' : ''} ${isTransitioning ? 'fade-out' : ''}`}>
                     {['1학년', '2학년', '3학년', '4학년'].map((grade) => (
                         <button
                             key={grade}
@@ -342,6 +371,52 @@ export function RoadmapPage() {
                         className={`next-button ${selectedGrade ? 'enabled' : 'disabled'}`}
                         onClick={handleNextClick}
                         disabled={!selectedGrade}
+                    >
+                        다음으로
+                    </button>
+                </div>
+            )}
+
+            {/* 4단계: 재학중(1학년) - 전공 결정 상태 선택 */}
+            {step === 4 && selectedStatus === '재학' && selectedGrade === '1학년' && (
+                <div className={`status-buttons-container ${!isTransitioning ? 'fade-in' : ''}`}>
+                    {['전공 정해짐', '계열만 정해짐', '자율전공학부'].map((decision) => (
+                        <button
+                            key={decision}
+                            className={`status-button ${selectedMajorDecision === decision ? 'selected' : ''}`}
+                            onClick={() => handleMajorDecisionSelect(decision)}
+                        >
+                            {decision}
+                        </button>
+                    ))}
+
+                    <button
+                        className={`next-button ${selectedMajorDecision ? 'enabled' : 'disabled'}`}
+                        onClick={handleNextClick}
+                        disabled={!selectedMajorDecision}
+                    >
+                        다음으로
+                    </button>
+                </div>
+            )}
+
+            {/* 4단계: 재학중(2/3/4학년) - 계열 선택 */}
+            {step === 4 && selectedStatus === '재학' && selectedGrade !== '1학년' && (
+                <div className={`status-buttons-container ${!isTransitioning ? 'fade-in' : ''}`}>
+                    {['인문사회', '경상호텔', 'IT계열', '공과계열'].map((major) => (
+                        <button
+                            key={major}
+                            className={`status-button ${selectedMajor === major ? 'selected' : ''}`}
+                            onClick={() => handleMajorSelect(major)}
+                        >
+                            {major}
+                        </button>
+                    ))}
+
+                    <button
+                        className={`next-button ${selectedMajor ? 'enabled' : 'disabled'}`}
+                        onClick={handleNextClick}
+                        disabled={!selectedMajor}
                     >
                         다음으로
                     </button>
