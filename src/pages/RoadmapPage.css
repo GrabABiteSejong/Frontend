@@ -55,7 +55,8 @@
     position: absolute;
     top: 11px;
     white-space: nowrap;
-    z-index: 20;
+    z-index: 50; /* 다른 오버레이보다 높은 숫자로 설정 */
+    cursor: pointer; /* 마우스 올렸을 때 손가락 모양 */
 }
 
 /* 네비게이션 버튼 공통 스타일 */
@@ -137,15 +138,7 @@
     z-index: 1;
 }
 
-/* 작은 캐릭터 아이콘 */
-.roadmap-character-small {
-    height: 118px;
-    left: 1682px;
-    position: absolute;
-    top: 886px;
-    width: 118px;
-    z-index: 10;
-}
+
 
 /* 클릭 가능한 요소 */
 .clickable {
@@ -480,3 +473,4 @@
 .interest-input:hover {
     background: rgba(255, 255, 255, 0.2);
 }
+

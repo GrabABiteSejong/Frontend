@@ -1,6 +1,7 @@
 import type {ReactNode} from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { env } from '@config/env';
+import {FloatingChatButton} from "@features/floating-chat/FloatingChatButton.tsx";
 
 interface AppShellProps {
     children: ReactNode;
@@ -17,6 +18,7 @@ export function AppShell({ children }: AppShellProps) {
     const navLinks = [
         { path: '/', label: '홈' },
         { path: '/roadmap', label: '로드맵' },
+        { path: '/major-intro', label: '전공 소개' },
     ];
 
     return (
@@ -55,6 +57,7 @@ export function AppShell({ children }: AppShellProps) {
             <main className={!hideHeader ? "max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8" : ""}>
                 {children}
             </main>
+            <FloatingChatButton />
 
             {/* 홈페이지와 로드맵 페이지가 아닐 때만 푸터 표시 */}
             {!hideHeader && (

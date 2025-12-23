@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+// import { useNavigate } from 'react-router-dom';
 import './RoadmapPage.css';
+import {Link, useNavigate} from "react-router-dom";
 
 type StudentStatus = '재학' | '입학예정' | null;
 type Step = 1 | 2 | 3 | 4 | 5 | 6;
@@ -14,7 +15,7 @@ const majorDetailsMap: Record<string, string[]> = {
 };
 
 export function RoadmapPage() {
-    const navigate = useNavigate();
+    // const navigate = useNavigate();
     const [showIntermediateText, setShowIntermediateText] = useState(false);
     const [showButtons, setShowButtons] = useState(false);
     const [step, setStep] = useState<Step>(1);
@@ -26,6 +27,8 @@ export function RoadmapPage() {
     const [interestInput, setInterestInput] = useState<string>('');
     const [uploadedFile, setUploadedFile] = useState<File | null>(null);
     const [isTransitioning, setIsTransitioning] = useState(false);
+
+    const navigate = useNavigate();
 
     // 단계별 텍스트 전환
     useEffect(() => {
@@ -50,13 +53,10 @@ export function RoadmapPage() {
     }, []);
 
     const handleMajorIntroClick = () => {
-        console.log('전공 소개 클릭');
-        // navigate('/major-intro'); // 페이지 준비되면 활성화
+        navigate('/major-intro'); // 페이지 준비되면 활성화
     };
 
-    const handleCharacterClick = () => {
-        console.log('캐릭터 클릭');
-    };
+
 
     const handleStatusSelect = (status: StudentStatus) => {
         setSelectedStatus(status);
@@ -171,7 +171,9 @@ export function RoadmapPage() {
             <div className="roadmap-top-bar" />
 
             {/* 로고 텍스트 */}
-            <div className="roadmap-logo-text">Please My Major</div>
+            <Link to="/" className="logo-text" style={{ textDecoration: 'none' }}>
+                Please My Major
+            </Link>
 
             {/* 진로 로드맵 버튼 (현재 페이지 - 활성화 상태) */}
             <div className="roadmap-nav-button roadmap-nav-active">
@@ -496,13 +498,7 @@ export function RoadmapPage() {
                 </div>
             )}
 
-            {/* 작은 캐릭터 아이콘 (클릭 가능) */}
-            <img
-                className="roadmap-character-small clickable"
-                alt="Character Icon"
-                src="/images/group-20.png"
-                onClick={handleCharacterClick}
-            />
+
         </div>
     );
 }
