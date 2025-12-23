@@ -225,7 +225,7 @@
     z-index: 10;
     overflow-y: auto;
     overflow-x: hidden;
-    padding: 0 20px;
+    padding: 20px;
 }
 
 /* 스크롤바 스타일 */
