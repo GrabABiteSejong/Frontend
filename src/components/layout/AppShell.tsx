@@ -16,8 +16,12 @@ export function AppShell({ children }: AppShellProps) {
   // 로드맵 관련 페이지인지 확인 (결과 페이지 포함)
   const isRoadmapPage = location.pathname === '/roadmap' || location.pathname === '/roadmap-result';
 
+
   // HomePage에는 이미 자체 상단바가 있으므로, 여기서는 숨김 처리 (HEAD 버전의 로직 유지)
   const hideHeader = isHomePage;
+
+
+
 
   const handleLogoClick = () => {
     navigate('/');
