@@ -249,6 +249,13 @@
     cursor: not-allowed;
 }
 
+/* 다중 선택 시 선택된 버튼 스타일 */
+.option-button.selected {
+    background-color: rgba(199, 255, 107, 0.5);
+    border-color: #c7ff6b;
+    box-shadow: 0 0 15px rgba(199, 255, 107, 0.4);
+}
+
 .question-content.transitioning .option-button {
     opacity: 0.3;
     pointer-events: none;
@@ -263,6 +270,39 @@
     line-height: 39.6px;
     text-align: center;
     white-space: nowrap;
+}
+
+/* multi 타입 다음 버튼 */
+.multi-next-button {
+    background-color: #c7ff6b;
+    border: none;
+    border-radius: 15px;
+    height: 60px;
+    width: 200px;
+    margin-top: 40px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+
+    color: #000000;
+    font-family: "Pretendard-Bold", Helvetica, sans-serif;
+    font-size: 24px;
+    font-weight: 700;
+}
+
+.multi-next-button:hover:not(:disabled) {
+    background-color: #d4ff8a;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 15px rgba(199, 255, 107, 0.4);
+}
+
+.multi-next-button:active:not(:disabled) {
+    transform: translateY(0);
+}
+
+.multi-next-button:disabled {
+    background-color: #666666;
+    opacity: 0.5;
+    cursor: not-allowed;
 }
 
 /* 진행 상황 표시 */
