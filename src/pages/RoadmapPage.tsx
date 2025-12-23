@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import './RoadmapPage.css';
 
 type StudentStatus = '재학' | '입학예정' | null;
-type Step = 1 | 2 | 3 | 4;
+type Step = 1 | 2 | 3 | 4 | 5 | 6;
 
 // 계열별 세부 전공 매핑
 const majorDetailsMap: Record<string, string[]> = {
@@ -23,6 +23,7 @@ export function RoadmapPage() {
     const [selectedDetailMajor, setSelectedDetailMajor] = useState<string | null>(null);
     const [selectedGrade, setSelectedGrade] = useState<string | null>(null);
     const [selectedMajorDecision, setSelectedMajorDecision] = useState<string | null>(null);
+    const [interestInput, setInterestInput] = useState<string>('');
     const [uploadedFile, setUploadedFile] = useState<File | null>(null);
     const [isTransitioning, setIsTransitioning] = useState(false);
 
@@ -107,10 +108,26 @@ export function RoadmapPage() {
                 // 다음 단계로 이동
                 // navigate('/next-step');
             } else if (selectedStatus === '재학' && selectedGrade !== '1학년' && selectedMajor) {
-                console.log('2/3/4학년 - 선택된 계열:', selectedMajor);
-                // 다음 단계로 이동
-                // navigate('/next-step');
+                // 2/3/4학년: 5단계로 이동 (세부 전공 선택)
+                setIsTransitioning(true);
+                setTimeout(() => {
+                    setStep(5);
+                    setIsTransitioning(false);
+                }, 800);
             }
+        } else if (step === 5 && selectedStatus === '재학' && selectedDetailMajor) {
+            // 5단계 -> 6단계 전환 (관심 분야 입력)
+            setIsTransitioning(true);
+            setTimeout(() => {
+                setStep(6);
+                setIsTransitioning(false);
+            }, 800);
+        } else if (step === 6 && interestInput.trim()) {
+            console.log('선택된 계열:', selectedMajor);
+            console.log('선택된 세부 전공:', selectedDetailMajor);
+            console.log('관심 분야:', interestInput);
+            // 다음 단계로 이동
+            // navigate('/next-step');
         }
     };
 
@@ -218,8 +235,20 @@ export function RoadmapPage() {
             )}
 
             {step === 4 && selectedStatus === '재학' && selectedGrade !== '1학년' && (
-                <div className={`roadmap-main-text-new ${!isTransitioning ? 'fade-in' : ''}`}>
+                <div className={`roadmap-main-text-new ${!isTransitioning ? 'fade-in' : ''} ${isTransitioning ? 'fade-out' : ''}`}>
                     재학 중인 계열을 선택하세요
+                </div>
+            )}
+
+            {step === 5 && selectedStatus === '재학' && (
+                <div className={`roadmap-main-text-new ${!isTransitioning ? 'fade-in' : ''} ${isTransitioning ? 'fade-out' : ''}`}>
+                    세부 전공을 선택하세요
+                </div>
+            )}
+
+            {step === 6 && selectedStatus === '재학' && selectedDetailMajor && (
+                <div className={`roadmap-main-text-new ${!isTransitioning ? 'fade-in' : ''}`}>
+                    '{selectedDetailMajor}'에서 가장 관심 있고 좋아하는 분야는 무엇인가요?
                 </div>
             )}
 
@@ -402,7 +431,7 @@ export function RoadmapPage() {
 
             {/* 4단계: 재학중(2/3/4학년) - 계열 선택 */}
             {step === 4 && selectedStatus === '재학' && selectedGrade !== '1학년' && (
-                <div className={`status-buttons-container ${!isTransitioning ? 'fade-in' : ''}`}>
+                <div className={`status-buttons-container ${!isTransitioning ? 'fade-in' : ''} ${isTransitioning ? 'fade-out' : ''}`}>
                     {['인문사회', '경상호텔', 'IT계열', '공과계열'].map((major) => (
                         <button
                             key={major}
@@ -417,6 +446,50 @@ export function RoadmapPage() {
                         className={`next-button ${selectedMajor ? 'enabled' : 'disabled'}`}
                         onClick={handleNextClick}
                         disabled={!selectedMajor}
+                    >
+                        다음으로
+                    </button>
+                </div>
+            )}
+
+            {/* 5단계: 재학중(2/3/4학년) - 세부 전공 선택 */}
+            {step === 5 && selectedStatus === '재학' && selectedMajor && (
+                <div className={`status-buttons-container ${!isTransitioning ? 'fade-in' : ''} ${isTransitioning ? 'fade-out' : ''}`}>
+                    {majorDetailsMap[selectedMajor]?.map((detailMajor) => (
+                        <button
+                            key={detailMajor}
+                            className={`status-button ${selectedDetailMajor === detailMajor ? 'selected' : ''}`}
+                            onClick={() => handleDetailMajorSelect(detailMajor)}
+                        >
+                            {detailMajor}
+                        </button>
+                    ))}
+
+                    <button
+                        className={`next-button ${selectedDetailMajor ? 'enabled' : 'disabled'}`}
+                        onClick={handleNextClick}
+                        disabled={!selectedDetailMajor}
+                    >
+                        다음으로
+                    </button>
+                </div>
+            )}
+
+            {/* 6단계: 재학중(2/3/4학년) - 관심 분야 입력 */}
+            {step === 6 && selectedStatus === '재학' && (
+                <div className={`text-input-container ${!isTransitioning ? 'fade-in' : ''}`}>
+                    <textarea
+                        className="interest-input"
+                        placeholder="관심 있는 분야를 자유롭게 입력해주세요..."
+                        value={interestInput}
+                        onChange={(e) => setInterestInput(e.target.value)}
+                        rows={5}
+                    />
+
+                    <button
+                        className={`next-button ${interestInput.trim() ? 'enabled' : 'disabled'}`}
+                        onClick={handleNextClick}
+                        disabled={!interestInput.trim()}
                     >
                         다음으로
                     </button>
