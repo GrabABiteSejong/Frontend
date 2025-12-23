@@ -17,7 +17,7 @@ export function AppShell({ children }: AppShellProps) {
     };
 
     const handleRoadmapClick = () => {
-        navigate('/roadmap');
+        navigate('/roadmap-result');
     };
 
     const handleMajorClick = () => {

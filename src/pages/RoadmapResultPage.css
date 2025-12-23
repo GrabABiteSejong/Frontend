@@ -166,10 +166,11 @@
 /* 질문 콘텐츠 - 고정 위치, 화면 중앙 */
 .question-content {
     position: absolute;
-    top: 50%;
+    top: 30%;
     left: 0;
     transform: translateY(-50%);
     width: 1920px;
+    max-height: 90vh;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -177,6 +178,8 @@
     z-index: 10;
     opacity: 0;
     animation: fadeIn 1s ease-in forwards;
+    padding: 40px 0;
+    box-sizing: border-box;
 }
 
 @keyframes fadeIn {
@@ -201,7 +204,7 @@
     text-align: center;
     margin-bottom: 60px;
     max-width: 1200px;
-    line-height: 1.4;
+    line-height: 0.5;
     z-index: 10;
     transition: opacity 0.3s ease;
 }
@@ -213,9 +216,35 @@
 /* 선택지 컨테이너 */
 .options-container {
     display: flex;
+    flex-wrap: wrap;
     gap: 40px;
     justify-content: center;
+    max-width: 1600px;
+    max-height: 60vh;
+    margin: 0 auto;
     z-index: 10;
+    overflow-y: auto;
+    overflow-x: hidden;
+    padding: 0 20px;
+}
+
+/* 스크롤바 스타일 */
+.options-container::-webkit-scrollbar {
+    width: 10px;
+}
+
+.options-container::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+}
+
+.options-container::-webkit-scrollbar-thumb {
+    background: rgba(199, 255, 107, 0.5);
+    border-radius: 10px;
+}
+
+.options-container::-webkit-scrollbar-thumb:hover {
+    background: rgba(199, 255, 107, 0.7);
 }
 
 /* 선택지 버튼 (Figma 스타일 적용) */
@@ -307,10 +336,8 @@
 
 /* 진행 상황 표시 */
 .progress-indicator {
-    position: absolute;
-    bottom: -200px;
-    left: 50%;
-    transform: translateX(-50%);
+    position: relative;
+    margin-top: 40px;
     color: rgba(255, 255, 255, 0.6);
     font-family: "Pretendard-Medium", Helvetica, sans-serif;
     font-size: 20px;
@@ -320,6 +347,106 @@
 
 .question-content.transitioning .progress-indicator {
     opacity: 0.3;
+}
+
+/* 파일 업로드 화면 */
+.file-upload-content {
+    position: absolute;
+    top: 30%;
+    left: 0;
+    transform: translateY(-50%);
+    width: 1920px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    z-index: 10;
+    animation: fadeIn 1s ease-in forwards;
+}
+
+.file-upload-text {
+    color: #ffffff;
+    font-family: "Pretendard-Bold", Helvetica, sans-serif;
+    font-size: 44px;
+    font-weight: 700;
+    text-align: center;
+    margin-bottom: 60px;
+    line-height: 1.4;
+}
+
+.file-upload-box {
+    width: 600px;
+    height: 300px;
+    margin-bottom: 40px;
+}
+
+.file-upload-label {
+    display: block;
+    width: 100%;
+    height: 100%;
+    cursor: pointer;
+}
+
+.file-upload-placeholder,
+.file-uploaded {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 3px dashed #c7ff6b;
+    border-radius: 20px;
+    background-color: rgba(199, 255, 107, 0.1);
+    transition: all 0.3s ease;
+}
+
+.file-upload-placeholder:hover {
+    background-color: rgba(199, 255, 107, 0.2);
+    border-color: #d4ff8a;
+}
+
+.file-upload-placeholder span {
+    color: #c7ff6b;
+    font-family: "Pretendard-Bold", Helvetica, sans-serif;
+    font-size: 32px;
+    font-weight: 700;
+}
+
+.file-uploaded {
+    background-color: rgba(199, 255, 107, 0.3);
+    border-style: solid;
+}
+
+.file-uploaded span {
+    color: #ffffff;
+    font-family: "Pretendard-Bold", Helvetica, sans-serif;
+    font-size: 28px;
+    font-weight: 700;
+}
+
+.file-upload-next-button {
+    width: 400px;
+    height: 70px;
+    background: #c7ff6b;
+    border-radius: 20px;
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+
+    color: #000000;
+    font-family: "Pretendard-Bold", Helvetica, sans-serif;
+    font-size: 28px;
+    font-weight: 700;
+}
+
+.file-upload-next-button:hover {
+    background-color: #d4ff8a;
+    transform: translateY(-3px);
+    box-shadow: 0 10px 30px rgba(199, 255, 107, 0.4);
+}
+
+.file-upload-next-button:active {
+    transform: translateY(-1px);
 }
 
 /* 완료 화면 */

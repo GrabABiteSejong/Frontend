@@ -10,6 +10,8 @@ export function RoadmapResultPage() {
     const [answers, setAnswers] = useState<{ [key: string]: string[] }>({});
     const [backgroundPosition, setBackgroundPosition] = useState(0);
     const [isTransitioning, setIsTransitioning] = useState(false);
+    const [showFileUpload, setShowFileUpload] = useState(false);
+    const [uploadedFile, setUploadedFile] = useState<File | null>(null);
     const [showFinalScreen, setShowFinalScreen] = useState(false);
     const [showResultButton, setShowResultButton] = useState(false);
 
@@ -130,23 +132,38 @@ export function RoadmapResultPage() {
                 setIsTransitioning(false);
             }, 800);
         } else {
-            // 마지막 질문 완료
-            const finalAnswers: AnswersData = {
-                answers: { ...answers, [questionId]: newAnswer },
-                completedCourses: [],
-                includeFeedback: true
-            };
-            console.log('모든 질문 완료! 최종 답변:', finalAnswers);
-
+            // 마지막 질문 완료 - 파일 업로드 화면으로 전환
+            setAnswers({ ...answers, [questionId]: newAnswer });
             setIsTransitioning(true);
 
-            // 완료 화면으로 전환
             setTimeout(() => {
-                setShowFinalScreen(true);
+                setShowFileUpload(true);
                 setBackgroundPosition(0); // 배경 위치 리셋
                 setIsTransitioning(false);
             }, 800);
         }
+    };
+
+    // 파일 업로드 핸들러
+    const handleFileUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
+        const file = event.target.files?.[0];
+        if (file && (file.name.endsWith('.xlsx') || file.name.endsWith('.xls'))) {
+            setUploadedFile(file);
+        } else if (file) {
+            alert('엑셀 파일(.xlsx, .xls)만 업로드 가능합니다.');
+        }
+    };
+
+    // 파일 업로드 화면에서 "다음으로" 버튼 클릭
+    const handleFileUploadNext = () => {
+        setIsTransitioning(true);
+
+        setTimeout(() => {
+            setShowFileUpload(false);
+            setShowFinalScreen(true);
+            setBackgroundPosition(0);
+            setIsTransitioning(false);
+        }, 800);
     };
 
     // multi 타입에서 다음 버튼 클릭
@@ -172,25 +189,18 @@ export function RoadmapResultPage() {
                 setIsTransitioning(false);
             }, 800);
         } else {
-            // 마지막 질문 완료
-            const finalAnswers: AnswersData = {
-                answers: answers,
-                completedCourses: [],
-                includeFeedback: true
-            };
-            console.log('모든 질문 완료! 최종 답변:', finalAnswers);
-
+            // 마지막 질문 완료 - 파일 업로드 화면으로 전환
             setIsTransitioning(true);
 
             setTimeout(() => {
-                setShowFinalScreen(true);
+                setShowFileUpload(true);
                 setBackgroundPosition(0);
                 setIsTransitioning(false);
             }, 800);
         }
     };
 
-    if (!currentQuestion && !showFinalScreen) {
+    if (!currentQuestion && !showFinalScreen && !showFileUpload) {
         return <div>Loading...</div>;
     }
 
@@ -234,7 +244,7 @@ export function RoadmapResultPage() {
             </div>
 
             {/* 질문 화면 (2초 후 나타남) - 고정 위치, 화면 중앙 */}
-            {!showInitial && !showFinalScreen && currentQuestion && (
+            {!showInitial && !showFinalScreen && !showFileUpload && currentQuestion && (
                 <div className={`question-content ${isTransitioning ? 'transitioning' : ''}`}>
                     {/* 질문 텍스트 */}
                     <div className="question-text">
@@ -273,6 +283,43 @@ export function RoadmapResultPage() {
                     <div className="progress-indicator">
                         {currentQuestionIndex + 1} / {visibleQuestions.length}
                     </div>
+                </div>
+            )}
+
+            {/* 파일 업로드 화면 */}
+            {showFileUpload && (
+                <div className="file-upload-content">
+                    <div className="file-upload-text">
+                        학사정보시스템에서 다운받은 정보 엑셀파일을 업로드 하시겠어요?
+                    </div>
+
+                    <div className="file-upload-box">
+                        <input
+                            type="file"
+                            id="file-input"
+                            accept=".xlsx,.xls"
+                            onChange={handleFileUpload}
+                            style={{ display: 'none' }}
+                        />
+                        <label htmlFor="file-input" className="file-upload-label">
+                            {uploadedFile ? (
+                                <div className="file-uploaded">
+                                    <span>✓ {uploadedFile.name}</span>
+                                </div>
+                            ) : (
+                                <div className="file-upload-placeholder">
+                                    <span>📁 클릭하여 파일 선택</span>
+                                </div>
+                            )}
+                        </label>
+                    </div>
+
+                    <button
+                        className="file-upload-next-button"
+                        onClick={handleFileUploadNext}
+                    >
+                        다음으로
+                    </button>
                 </div>
             )}
 
