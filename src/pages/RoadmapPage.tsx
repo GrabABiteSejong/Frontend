@@ -90,10 +90,12 @@ export function RoadmapPage() {
             }
         } else if (step === 3) {
             if (selectedStatus === '입학예정' && selectedDetailMajor) {
-                console.log('선택된 계열:', selectedMajor);
-                console.log('선택된 세부 전공:', selectedDetailMajor);
-                // 다음 단계로 이동
-                // navigate('/next-step');
+                // 입학예정: 세부 전공 선택 후 4단계로 이동 (관심 분야 입력)
+                setIsTransitioning(true);
+                setTimeout(() => {
+                    setStep(4);
+                    setIsTransitioning(false);
+                }, 800);
             } else if (selectedStatus === '재학' && selectedGrade) {
                 // 재학생: 학년 선택 후 4단계로 이동
                 setIsTransitioning(true);
@@ -103,10 +105,19 @@ export function RoadmapPage() {
                 }, 800);
             }
         } else if (step === 4) {
-            if (selectedStatus === '재학' && selectedGrade === '1학년' && selectedMajorDecision) {
-                console.log('1학년 - 선택된 전공 결정 상태:', selectedMajorDecision);
+            if (selectedStatus === '입학예정' && interestInput.trim()) {
+                console.log('입학예정 - 선택된 계열:', selectedMajor);
+                console.log('입학예정 - 선택된 세부 전공:', selectedDetailMajor);
+                console.log('입학예정 - 관심 분야:', interestInput);
                 // 다음 단계로 이동
                 // navigate('/next-step');
+            } else if (selectedStatus === '재학' && selectedGrade === '1학년' && selectedMajorDecision) {
+                // 1학년: 5단계로 이동 (전공/계열 입력)
+                setIsTransitioning(true);
+                setTimeout(() => {
+                    setStep(5);
+                    setIsTransitioning(false);
+                }, 800);
             } else if (selectedStatus === '재학' && selectedGrade !== '1학년' && selectedMajor) {
                 // 2/3/4학년: 5단계로 이동 (세부 전공 선택)
                 setIsTransitioning(true);
@@ -115,13 +126,20 @@ export function RoadmapPage() {
                     setIsTransitioning(false);
                 }, 800);
             }
-        } else if (step === 5 && selectedStatus === '재학' && selectedDetailMajor) {
-            // 5단계 -> 6단계 전환 (관심 분야 입력)
-            setIsTransitioning(true);
-            setTimeout(() => {
-                setStep(6);
-                setIsTransitioning(false);
-            }, 800);
+        } else if (step === 5) {
+            if (selectedStatus === '재학' && selectedGrade === '1학년' && interestInput.trim()) {
+                console.log('1학년 - 선택된 전공 결정 상태:', selectedMajorDecision);
+                console.log('1학년 - 입력한 전공/계열:', interestInput);
+                // 다음 단계로 이동
+                // navigate('/next-step');
+            } else if (selectedStatus === '재학' && selectedGrade !== '1학년' && selectedDetailMajor) {
+                // 2/3/4학년: 5단계 -> 6단계 전환 (관심 분야 입력)
+                setIsTransitioning(true);
+                setTimeout(() => {
+                    setStep(6);
+                    setIsTransitioning(false);
+                }, 800);
+            }
         } else if (step === 6 && interestInput.trim()) {
             console.log('선택된 계열:', selectedMajor);
             console.log('선택된 세부 전공:', selectedDetailMajor);
@@ -217,7 +235,7 @@ export function RoadmapPage() {
             )}
 
             {step === 3 && selectedStatus === '입학예정' && (
-                <div className={`roadmap-main-text-new ${!isTransitioning ? 'fade-in' : ''}`}>
+                <div className={`roadmap-main-text-new ${!isTransitioning ? 'fade-in' : ''} ${isTransitioning ? 'fade-out' : ''}`}>
                     세부 전공을 선택하세요
                 </div>
             )}
@@ -228,8 +246,14 @@ export function RoadmapPage() {
                 </div>
             )}
 
-            {step === 4 && selectedStatus === '재학' && selectedGrade === '1학년' && (
+            {step === 4 && selectedStatus === '입학예정' && selectedDetailMajor && (
                 <div className={`roadmap-main-text-new ${!isTransitioning ? 'fade-in' : ''}`}>
+                    '{selectedDetailMajor}'에서 가장 관심 있고 좋아하는 분야는 무엇인가요?
+                </div>
+            )}
+
+            {step === 4 && selectedStatus === '재학' && selectedGrade === '1학년' && (
+                <div className={`roadmap-main-text-new ${!isTransitioning ? 'fade-in' : ''} ${isTransitioning ? 'fade-out' : ''}`}>
                     해당하는 부분을 선택하세요
                 </div>
             )}
@@ -240,11 +264,30 @@ export function RoadmapPage() {
                 </div>
             )}
 
-            {step === 5 && selectedStatus === '재학' && (
+            {step === 5 && selectedStatus === '재학' && selectedGrade !== '1학년' && (
                 <div className={`roadmap-main-text-new ${!isTransitioning ? 'fade-in' : ''} ${isTransitioning ? 'fade-out' : ''}`}>
                     세부 전공을 선택하세요
                 </div>
             )}
+
+            {step === 5 && selectedStatus === '재학' && selectedGrade === '1학년' && selectedMajorDecision === '전공 정해짐' && (
+                <div className={`roadmap-main-text-new ${!isTransitioning ? 'fade-in' : ''}`}>
+                    본인의 전공은 무엇인가요?
+                </div>
+            )}
+
+            {step === 5 && selectedStatus === '재학' && selectedGrade === '1학년' && selectedMajorDecision === '계열만 정해짐' && (
+                <div className={`roadmap-main-text-new ${!isTransitioning ? 'fade-in' : ''}`}>
+                    본인의 계열은 무엇인가요?
+                </div>
+            )}
+
+            {step === 5 && selectedStatus === '재학' && selectedGrade === '1학년' && selectedMajorDecision === '자율전공학부' && (
+                <div className={`roadmap-main-text-new ${!isTransitioning ? 'fade-in' : ''}`}>
+                    가고 싶은 계열은 무엇인가요?
+                </div>
+            )}
+
 
             {step === 6 && selectedStatus === '재학' && selectedDetailMajor && (
                 <div className={`roadmap-main-text-new ${!isTransitioning ? 'fade-in' : ''}`}>
@@ -362,7 +405,7 @@ export function RoadmapPage() {
 
             {/* 3단계: 입학예정 - 세부 전공 선택 */}
             {step === 3 && selectedStatus === '입학예정' && selectedMajor && (
-                <div className={`status-buttons-container ${!isTransitioning ? 'fade-in' : ''}`}>
+                <div className={`status-buttons-container ${!isTransitioning ? 'fade-in' : ''} ${isTransitioning ? 'fade-out' : ''}`}>
                     {majorDetailsMap[selectedMajor]?.map((detailMajor) => (
                         <button
                             key={detailMajor}
@@ -406,9 +449,30 @@ export function RoadmapPage() {
                 </div>
             )}
 
+            {/* 4단계: 입학예정 - 관심 분야 입력 */}
+            {step === 4 && selectedStatus === '입학예정' && (
+                <div className={`text-input-container ${!isTransitioning ? 'fade-in' : ''}`}>
+                    <textarea
+                        className="interest-input"
+                        placeholder="관심 있는 분야를 자유롭게 입력해주세요..."
+                        value={interestInput}
+                        onChange={(e) => setInterestInput(e.target.value)}
+                        rows={5}
+                    />
+
+                    <button
+                        className={`next-button ${interestInput.trim() ? 'enabled' : 'disabled'}`}
+                        onClick={handleNextClick}
+                        disabled={!interestInput.trim()}
+                    >
+                        다음으로
+                    </button>
+                </div>
+            )}
+
             {/* 4단계: 재학중(1학년) - 전공 결정 상태 선택 */}
             {step === 4 && selectedStatus === '재학' && selectedGrade === '1학년' && (
-                <div className={`status-buttons-container ${!isTransitioning ? 'fade-in' : ''}`}>
+                <div className={`status-buttons-container ${!isTransitioning ? 'fade-in' : ''} ${isTransitioning ? 'fade-out' : ''}`}>
                     {['전공 정해짐', '계열만 정해짐', '자율전공학부'].map((decision) => (
                         <button
                             key={decision}
@@ -423,6 +487,33 @@ export function RoadmapPage() {
                         className={`next-button ${selectedMajorDecision ? 'enabled' : 'disabled'}`}
                         onClick={handleNextClick}
                         disabled={!selectedMajorDecision}
+                    >
+                        다음으로
+                    </button>
+                </div>
+            )}
+
+            {/* 5단계: 재학중(1학년) - 전공/계열 입력 */}
+            {step === 5 && selectedStatus === '재학' && selectedGrade === '1학년' && (
+                <div className={`text-input-container ${!isTransitioning ? 'fade-in' : ''}`}>
+                    <textarea
+                        className="interest-input"
+                        placeholder={
+                            selectedMajorDecision === '전공 정해짐'
+                                ? "전공을 입력해주세요..."
+                                : selectedMajorDecision === '계열만 정해짐'
+                                ? "계열을 입력해주세요..."
+                                : "가고 싶은 계열을 입력해주세요..."
+                        }
+                        value={interestInput}
+                        onChange={(e) => setInterestInput(e.target.value)}
+                        rows={5}
+                    />
+
+                    <button
+                        className={`next-button ${interestInput.trim() ? 'enabled' : 'disabled'}`}
+                        onClick={handleNextClick}
+                        disabled={!interestInput.trim()}
                     >
                         다음으로
                     </button>
