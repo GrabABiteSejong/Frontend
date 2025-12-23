@@ -48,12 +48,22 @@ export function MajorIntroPage() {
                     src="/images/last_introduction_back.png"
                 />
 
-                {/* 중앙 캐릭터 이미지 */}
-                <img
-                    className="intro-character-img"
-                    alt="Character"
-                    src="/images/last_introduction.png"
-                />
+                {/* 중앙 캐릭터 이미지 (단과대학 선택 전에만 표시) */}
+                {!selectedCollege && (
+                    <img
+                        className="intro-character-img"
+                        alt="Character"
+                        src="/images/last_introduction.png"
+                    />
+                )}
+
+                {/* 단과대학 선택 시 텍스트 표시 */}
+                {selectedCollege && (
+                    <div className={`hero-text-container ${isTransitioning ? 'fade-out' : 'fade-in'}`}>
+                        <h1 className="hero-college-title">{selectedCollege}</h1>
+                        <p className="hero-subtitle">당신의 진로 안내 도우미, Please My Major.</p>
+                    </div>
+                )}
             </div>
 
             {/* 하단 콘텐츠 섹션 */}
@@ -101,19 +111,6 @@ export function MajorIntroPage() {
                     {/* 학과 목록 */}
                     {selectedCollege && departmentsByCollege[selectedCollege] && (
                         <div className={`department-list-view ${isTransitioning ? 'fade-out' : 'fade-in'}`}>
-                            {/* 단과대학 이름 */}
-                            <h1 className="department-college-title">
-                                {selectedCollege}
-                            </h1>
-
-                            {/* 안내 텍스트 */}
-                            <p className="department-subtitle-green">
-                                당신의 진로 안내 도우미, Please My Major.
-                            </p>
-                            <p className="department-subtitle-white">
-                                해당 학과의 폴더를 클릭하면 학과 상세 페이지로 이동해요!
-                            </p>
-
                             {/* 학과 폴더 그리드 */}
                             <div className="departments-grid">
                                 {departmentsByCollege[selectedCollege].map((department, index) => (
