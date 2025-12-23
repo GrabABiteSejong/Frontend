@@ -60,7 +60,7 @@ export function HomePage() {
             <img className="character-large" alt="Character" src="/images/1.png" />
 
             {/* 장식 벡터 */}
-            <img className="decoration-vector" alt="Vector" src="/images/vector-1.svg" />
+            <img className="decoration-vector" alt="Vector" src="/images/vector-1.png" />
 
             {/* BACKGROUND 섹션 */}
             <div className="section-title">BACKGROUND</div>
