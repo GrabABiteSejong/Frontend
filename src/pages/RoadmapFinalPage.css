@@ -1,0 +1,168 @@
+.roadmap-final-page {
+    background-color: #000000;
+    min-height: 100vh;
+    width: 100%;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+/* 상단 히어로 섹션 */
+.final-hero-section {
+    position: relative;
+    width: 1920px;
+    height: 1080px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+
+/* 배경 이미지 */
+.final-background-img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 1920px;
+    height: 1080px;
+    object-fit: cover;
+    z-index: 0;
+}
+
+/* 중앙 캐릭터 이미지 */
+.final-character-img {
+    position: relative;
+    z-index: 1;
+    max-width: 600px;
+    height: auto;
+    animation: fadeIn 1s ease-in forwards;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* 하단 콘텐츠 섹션 */
+.final-content-section {
+    background-color: #000000;
+    width: 100%;
+    min-height: 1000px;
+    padding: 100px 0;
+}
+
+.final-content-container {
+    width: 1920px;
+    margin: 0 auto;
+    padding: 0 120px;
+}
+
+/* 섹션 타이틀 */
+.section-title {
+    color: #c7ff6b;
+    font-family: "Pretendard-Bold", Helvetica, sans-serif;
+    font-size: 48px;
+    font-weight: 700;
+    text-align: center;
+    margin-bottom: 80px;
+    letter-spacing: -0.96px;
+}
+
+/* 서브섹션 타이틀 */
+.subsection-title {
+    color: #ffffff;
+    font-family: "Pretendard-Bold", Helvetica, sans-serif;
+    font-size: 32px;
+    font-weight: 700;
+    margin-bottom: 30px;
+}
+
+/* 답변 데이터 표시 */
+.answers-display {
+    background-color: #1a1a1a;
+    border: 2px solid #333333;
+    border-radius: 20px;
+    padding: 40px;
+    margin-bottom: 60px;
+}
+
+.answers-json {
+    background-color: #0a0a0a;
+    border: 1px solid #444444;
+    border-radius: 10px;
+    padding: 20px;
+    color: #c7ff6b;
+    font-family: 'Courier New', monospace;
+    font-size: 14px;
+    line-height: 1.6;
+    overflow-x: auto;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+}
+
+/* 임시 플레이스홀더 스타일 */
+.placeholder-chart,
+.placeholder-table {
+    background-color: #1a1a1a;
+    border: 2px dashed #333333;
+    border-radius: 20px;
+    padding: 100px;
+    margin-bottom: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.placeholder-chart {
+    height: 500px;
+}
+
+.placeholder-table {
+    height: 600px;
+}
+
+.placeholder-chart p,
+.placeholder-table p {
+    color: #666666;
+    font-family: "Pretendard-Medium", Helvetica, sans-serif;
+    font-size: 24px;
+}
+
+/* 폰트 로딩 */
+@font-face {
+    font-family: 'Pretendard-Bold';
+    src: local('Pretendard Bold'), local('Pretendard-Bold');
+    font-weight: 700;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Pretendard-Medium';
+    src: local('Pretendard Medium'), local('Pretendard-Medium');
+    font-weight: 500;
+    font-style: normal;
+}
+
+/* 반응형: 1920px보다 작은 화면에서 스케일 조정 */
+@media (max-width: 1920px) {
+    .final-hero-section,
+    .final-content-container {
+        transform: scale(calc(100vw / 1920px));
+        transform-origin: top center;
+    }
+}
+
+/* 매우 작은 화면 (모바일) */
+@media (max-width: 768px) {
+    .final-hero-section,
+    .final-content-container {
+        transform: scale(0.4);
+        transform-origin: top center;
+    }
+}
