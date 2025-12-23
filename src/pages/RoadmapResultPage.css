@@ -1,20 +1,39 @@
 .roadmap-result-screen {
     background-color: #0f0f0f;
-    height: 1080px;
+    height: 100vh;
     position: relative;
     width: 1920px;
     margin: 0 auto;
-    overflow: hidden;
+    overflow: hidden; /* 스크롤 방지 */
+    animation: pageEnter 0.8s ease-out;
+}
+
+@keyframes pageEnter {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+/* 배경 이미지 컨테이너 (스크롤되는 부분) */
+.result-background-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 1920px;
+    height: auto;
+    z-index: 0;
+    will-change: transform;
 }
 
 /* 배경 이미지 */
 .result-background-img {
-    height: 1080px;
-    left: 0;
-    object-fit: cover;
-    position: absolute;
-    top: 0;
     width: 1920px;
+    height: auto;
+    display: block;
+    object-fit: cover;
 }
 
 /* ========================================= */
@@ -120,6 +139,215 @@
     top: 357px;
     width: 1671px;
     z-index: 1;
+}
+
+/* 초기 콘텐츠 컨테이너 - 고정 위치 */
+.initial-content {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 1920px;
+    height: 100vh;
+    z-index: 10;
+    transition: opacity 2s cubic-bezier(0.4, 0, 0.2, 1), transform 2s cubic-bezier(0.4, 0, 0.2, 1);
+    pointer-events: none;
+}
+
+.initial-content > * {
+    pointer-events: auto;
+}
+
+.initial-content.fade-out {
+    opacity: 0;
+    transform: scale(0.95);
+    pointer-events: none;
+}
+
+/* 질문 콘텐츠 - 고정 위치, 화면 중앙 */
+.question-content {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    transform: translateY(-50%);
+    width: 1920px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    z-index: 10;
+    opacity: 0;
+    animation: fadeIn 1s ease-in forwards;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+.question-content.fade-in {
+    animation: fadeIn 1s ease-in forwards;
+}
+
+/* 질문 텍스트 */
+.question-text {
+    color: #ffffff;
+    font-family: "Pretendard-Bold", Helvetica, sans-serif;
+    font-size: 48px;
+    font-weight: 700;
+    text-align: center;
+    margin-bottom: 60px;
+    max-width: 1200px;
+    line-height: 1.4;
+    z-index: 10;
+    transition: opacity 0.3s ease;
+}
+
+.question-content.transitioning .question-text {
+    opacity: 0.3;
+}
+
+/* 선택지 컨테이너 */
+.options-container {
+    display: flex;
+    gap: 40px;
+    justify-content: center;
+    z-index: 10;
+}
+
+/* 선택지 버튼 (Figma 스타일 적용) */
+.option-button {
+    background-color: rgba(255, 255, 255, 0.3);
+    border: 1.59px solid #ffffff;
+    border-radius: 15.86px;
+    height: 86px;
+    min-width: 200px;
+    padding: 0 40px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.option-button:hover:not(:disabled) {
+    background-color: rgba(199, 255, 107, 0.3);
+    border-color: #c7ff6b;
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(199, 255, 107, 0.3);
+}
+
+.option-button:active:not(:disabled) {
+    transform: translateY(-1px);
+}
+
+.option-button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.question-content.transitioning .option-button {
+    opacity: 0.3;
+    pointer-events: none;
+}
+
+.option-text {
+    color: #ffffff;
+    font-family: "Pretendard-Bold", Helvetica, sans-serif;
+    font-size: 28.5px;
+    font-weight: 700;
+    letter-spacing: -0.57px;
+    line-height: 39.6px;
+    text-align: center;
+    white-space: nowrap;
+}
+
+/* 진행 상황 표시 */
+.progress-indicator {
+    position: absolute;
+    bottom: -200px;
+    left: 50%;
+    transform: translateX(-50%);
+    color: rgba(255, 255, 255, 0.6);
+    font-family: "Pretendard-Medium", Helvetica, sans-serif;
+    font-size: 20px;
+    z-index: 10;
+    transition: opacity 0.3s ease;
+}
+
+.question-content.transitioning .progress-indicator {
+    opacity: 0.3;
+}
+
+/* 완료 화면 */
+.final-content {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    transform: translateY(-50%);
+    width: 1920px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    z-index: 10;
+    animation: fadeIn 1s ease-in forwards;
+}
+
+.final-text {
+    color: #ffffff;
+    font-family: "Pretendard-Bold", Helvetica, sans-serif;
+    font-size: 48px;
+    font-weight: 700;
+    text-align: center;
+    line-height: 1.4;
+    transition: opacity 0.8s ease-in-out;
+}
+
+.final-text.fade-change {
+    animation: textFadeChange 0.8s ease-in-out;
+}
+
+@keyframes textFadeChange {
+    0% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+/* 결과 보러가기 버튼 */
+.result-button {
+    width: 550px;
+    height: 80px;
+    background: #ffffff;
+    border-radius: 20px;
+    border: none;
+    margin-top: 60px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    animation: fadeIn 1s ease-in forwards;
+
+    color: #000000;
+    font-family: "Pretendard-Bold", Helvetica, sans-serif;
+    font-size: 32px;
+    font-weight: 700;
+}
+
+.result-button:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 30px rgba(255, 255, 255, 0.3);
+}
+
+.result-button:active {
+    transform: translateY(-1px);
 }
 
 /* 폰트 로딩 */
