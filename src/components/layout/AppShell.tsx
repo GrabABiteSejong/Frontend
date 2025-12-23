@@ -1,72 +1,79 @@
-import type {ReactNode} from 'react';
-import { Link, useLocation } from 'react-router-dom';
-import { env } from '@config/env';
-import {FloatingChatButton} from "@features/floating-chat/FloatingChatButton.tsx";
+import type { ReactNode } from 'react';
+import { useNavigate, useLocation } from 'react-router-dom'; // useNavigate 추가
+import { FloatingChatButton } from "@features/floating-chat/FloatingChatButton.tsx";
+import './AppShell.css'; // 새로 추가된 CSS
 
 interface AppShellProps {
-    children: ReactNode;
+  children: ReactNode;
 }
 
 export function AppShell({ children }: AppShellProps) {
-    const location = useLocation();
-    const isHomePage = location.pathname === '/';
-    const isRoadmapPage = location.pathname === '/roadmap';
+  const navigate = useNavigate();
+  const location = useLocation();
 
-    // 홈페이지와 로드맵 페이지에서는 자체 상단바 사용
-    const hideHeader = isHomePage || isRoadmapPage;
+  // 현재 페이지 경로 확인
+  const isHomePage = location.pathname === '/';
+  // 로드맵 관련 페이지인지 확인 (결과 페이지 포함)
+  const isRoadmapPage = location.pathname === '/roadmap' || location.pathname === '/roadmap-result';
 
-    const navLinks = [
-        { path: '/', label: '홈' },
-        { path: '/roadmap', label: '로드맵' },
-        { path: '/major-intro', label: '전공 소개' },
-    ];
+  // HomePage에는 이미 자체 상단바가 있으므로, 여기서는 숨김 처리 (HEAD 버전의 로직 유지)
+  const hideHeader = isHomePage;
 
-    return (
-        <div className="min-h-screen bg-gray-50">
-            {/* 홈페이지와 로드맵 페이지가 아닐 때만 헤더 표시 */}
-            {!hideHeader && (
-                <header className="bg-white shadow-sm">
-                    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                        <div className="flex justify-between items-center h-16">
-                            <div className="flex items-center">
-                                <Link to="/" className="text-xl font-bold text-blue-600">
-                                    {env.appTitle}
-                                </Link>
-                            </div>
-                            <nav className="flex space-x-4">
-                                {navLinks.map((link) => (
-                                    <Link
-                                        key={link.path}
-                                        to={link.path}
-                                        className={`px-3 py-2 rounded-md text-sm font-medium transition-colors ${
-                                            location.pathname === link.path
-                                                ? 'bg-blue-100 text-blue-700'
-                                                : 'text-gray-700 hover:bg-gray-100'
-                                        }`}
-                                    >
-                                        {link.label}
-                                    </Link>
-                                ))}
-                            </nav>
-                        </div>
-                    </div>
-                </header>
-            )}
+  const handleLogoClick = () => {
+    navigate('/');
+  };
 
-            {/* 홈페이지와 로드맵 페이지일 때는 padding 제거 */}
-            <main className={!hideHeader ? "max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8" : ""}>
-                {children}
-            </main>
-            <FloatingChatButton />
+  const handleRoadmapClick = () => {
+    navigate('/roadmap');
+  };
 
-            {/* 홈페이지와 로드맵 페이지가 아닐 때만 푸터 표시 */}
-            {!hideHeader && (
-                <footer className="bg-white border-t mt-auto">
-                    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
-                        <p className="text-center text-sm text-gray-500">{env.appDescription}</p>
-                    </div>
-                </footer>
-            )}
+  const handleMajorClick = () => {
+    navigate('/major-intro');
+  };
+
+  return (
+      <div className="app-shell">
+        {/* 홈페이지가 아닐 때만 공통 헤더 표시 */}
+        {!hideHeader && (
+            <div className="common-header-container">
+              <div className="common-header-wrapper">
+                {/* 상단 바 */}
+                <div className="common-top-bar" />
+
+                {/* 로고 (두기) */}
+                <div
+                    className="common-logo-text"
+                    onClick={handleLogoClick}
+                    style={{ cursor: 'pointer' }}
+                >
+                  두기
+                </div>
+
+                {/* 네비게이션 버튼들 */}
+                <button
+                    className={`common-nav-button common-nav-roadmap ${isRoadmapPage ? 'active' : ''}`}
+                    onClick={handleRoadmapClick}
+                >
+                  진로 로드맵
+                </button>
+
+                <button
+                    className="common-nav-button common-nav-major"
+                    onClick={handleMajorClick}
+                >
+                  전공 소개
+                </button>
+              </div>
+            </div>
+        )}
+
+        {/* 페이지 콘텐츠 */}
+        <div className="app-content">
+          {children}
         </div>
-    );
+
+        {/* 플로팅 채팅 버튼 (항상 표시) */}
+        <FloatingChatButton />
+      </div>
+  );
 }
