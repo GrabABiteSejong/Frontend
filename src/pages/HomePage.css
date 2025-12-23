@@ -1,0 +1,353 @@
+.home-screen {
+    background-color: #0f0f0f;
+    height: 6317px;  /* Figma 원본 높이로 고정 */
+    position: relative;
+    width: 1920px;   /* Figma 원본 너비로 고정 */
+    margin: 0 auto;  /* 중앙 정렬 */
+    overflow-x: hidden;
+}
+
+/* 배경 이미지 */
+.background-image {
+    height: 1080px;
+    left: 0;
+    object-fit: cover;
+    position: absolute;
+    top: 100px;
+    width: 1920px;
+}
+
+/* 그라데이션 오버레이 */
+.gradient-overlay {
+    background: linear-gradient(
+            180deg,
+            rgba(35, 28, 24, 0) 0%,
+            rgba(24, 21, 19, 0.6) 46%,
+            rgba(16, 16, 16, 1) 100%
+    );
+    height: 176px;
+    left: 0;
+    position: absolute;
+    top: 1004px;
+    width: 1920px;
+}
+
+/* 상단 바 */
+.top-bar {
+    background-color: #000000;
+    height: 100px;
+    left: 0;
+    position: absolute;
+    top: 0;
+    width: 1920px;
+    z-index: 10;
+}
+
+/* 로고 텍스트 */
+.logo-text {
+    color: #c7ff6b;
+    font-family: "RixInooAriDuri_Pro-Regular", Helvetica, sans-serif;
+    font-size: 40px;
+    font-weight: 400;
+    left: 120px;
+    letter-spacing: -0.80px;
+    line-height: 88.7px;
+    position: absolute;
+    top: 11px;
+    white-space: nowrap;
+    z-index: 20;
+}
+
+/* 메인 타이틀 */
+.main-title {
+    align-items: center;
+    color: #ffffff;
+    display: flex;
+    font-family: "RixInooAriDuri_Pro-Regular", Helvetica, sans-serif;
+    font-size: 123.9px;
+    font-weight: 400;
+    height: 159px;
+    justify-content: center;
+    left: 120px;
+    letter-spacing: -2.48px;
+    line-height: 262.0px;
+    position: absolute;
+    top: 190px;
+    white-space: nowrap;
+    width: 1131px;
+    z-index: 5;
+}
+
+/* 서브타이틀 */
+.subtitle {
+    color: #c7ff6b;
+    font-family: "Pretendard-Bold", Helvetica, sans-serif;
+    font-size: 53.1px;
+    font-weight: 700;
+    left: 120px;
+    letter-spacing: -1.06px;
+    line-height: 79.6px;
+    position: absolute;
+    top: 356px;
+    white-space: nowrap;
+    z-index: 5;
+}
+
+/* 네비게이션 버튼 공통 스타일 */
+.nav-button {
+    color: #ffffff;
+    font-family: "Pretendard-Medium", Helvetica, sans-serif;
+    font-size: 28px;
+    font-weight: 500;
+    letter-spacing: -0.56px;
+    line-height: 88.7px;
+    position: absolute;
+    text-align: center;
+    top: 11px;
+    white-space: nowrap;
+    background: none;
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    z-index: 20;
+}
+
+.nav-button:hover {
+    color: #c7ff6b;
+    transform: scale(1.05);
+}
+
+.nav-button:active {
+    transform: scale(0.95);
+}
+
+/* 진로 로드맵 버튼 */
+.roadmap-button {
+    left: 1388px;
+}
+
+/* 전공 소개 버튼 */
+.major-button {
+    left: 1698px;
+}
+
+/* 큰 캐릭터 이미지 */
+.character-large {
+    aspect-ratio: 0.67;
+    height: 781px;
+    left: 1289px;
+    object-fit: cover;
+    position: absolute;
+    top: 267px;
+    width: 521px;
+    z-index: 5;
+}
+
+/* 장식 벡터 */
+.decoration-vector {
+    height: 739px;
+    left: 86px;
+    position: absolute;
+    top: 342px;
+    width: 1671px;
+    z-index: 1;
+}
+
+/* 섹션 타이틀 (BACKGROUND) */
+.section-title {
+    color: #ffffff;
+    font-family: "Pretendard-Bold", Helvetica, sans-serif;
+    font-size: 24px;
+    font-weight: 700;
+    left: calc(50% - 83px);
+    letter-spacing: 0;
+    line-height: normal;
+    position: absolute;
+    text-align: center;
+    top: 1270px;
+}
+
+/* 섹션 메인 텍스트 */
+.section-main-text {
+    color: #ffffff;
+    font-family: "Pretendard-Bold", Helvetica, sans-serif;
+    font-size: 40px;
+    font-weight: 700;
+    left: calc(50% - 483px);
+    letter-spacing: 0;
+    line-height: 45px;
+    position: absolute;
+    text-align: center;
+    top: 1356px;
+    white-space: nowrap;
+    width: 967px;
+}
+
+/* 섹션 설명 텍스트 */
+.section-description {
+    color: #ffffff;
+    font-family: "Pretendard-SemiBold", Helvetica, sans-serif;
+    font-size: 24px;
+    font-weight: 600;
+    left: calc(50% - 463px);
+    letter-spacing: 0;
+    line-height: 40px;
+    position: absolute;
+    text-align: center;
+    top: 1432px;
+    width: 926px;
+}
+
+/* 플레이스홀더 박스 공통 스타일 */
+.placeholder-box {
+    height: 156px;
+    left: 318px;
+    position: absolute;
+    width: 1286px;
+}
+
+.placeholder-bg {
+    background-color: #ff00ee;
+    height: 156px;
+    left: 0;
+    position: absolute;
+    top: 0;
+    width: 1284px;
+}
+
+.placeholder-text {
+    color: #000000;
+    font-family: "Pretendard-SemiBold", Helvetica, sans-serif;
+    font-size: 88.7px;
+    font-weight: 600;
+    left: 107px;
+    letter-spacing: -1.77px;
+    line-height: 88.7px;
+    position: absolute;
+    text-align: center;
+    top: 36px;
+    white-space: nowrap;
+    width: 1069px;
+    z-index: 10;
+}
+
+/* 각 플레이스홀더 박스 위치 */
+.statistics-box {
+    top: 1686px;
+}
+
+.intro-box {
+    top: 2503px;
+}
+
+.character-intro-box {
+    top: 3655px;
+}
+
+.footer-box {
+    height: 356px;
+    top: 5778px;
+}
+
+.footer-bg {
+    background-color: #ff00ee;
+    height: 356px;
+    left: 0;
+    position: absolute;
+    top: 0;
+    width: 1284px;
+}
+
+.footer-text {
+    color: #000000;
+    font-family: "Pretendard-SemiBold", Helvetica, sans-serif;
+    font-size: 185.9px;
+    font-weight: 600;
+    left: 169px;
+    letter-spacing: -3.72px;
+    line-height: 185.9px;
+    position: absolute;
+    text-align: center;
+    top: 83px;
+    white-space: nowrap;
+    width: 947px;
+}
+
+/* 작은 원형 캐릭터 (클릭 가능) */
+.character-small {
+    height: 118px;
+    left: 120px;
+    position: absolute;
+    top: 886px;
+    width: 118px;
+    z-index: 10;
+}
+
+.clickable {
+    cursor: pointer;
+    transition: transform 0.2s ease;
+}
+
+.clickable:hover {
+    transform: scale(1.1);
+}
+
+.clickable:active {
+    transform: scale(0.95);
+}
+
+/* 폰트 로딩 */
+@font-face {
+    font-family: 'Pretendard-Bold';
+    src: local('Pretendard Bold'), local('Pretendard-Bold');
+    font-weight: 700;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Pretendard-SemiBold';
+    src: local('Pretendard SemiBold'), local('Pretendard-SemiBold');
+    font-weight: 600;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Pretendard-Medium';
+    src: local('Pretendard Medium'), local('Pretendard-Medium');
+    font-weight: 500;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'RixInooAriDuri_Pro-Regular';
+    src: local('RixInooAriDuri Pro Regular'), local('RixInooAriDuri_Pro-Regular');
+    font-weight: 400;
+    font-style: normal;
+}
+
+/* ========================================= */
+/* 반응형 옵션: 작은 화면에서 스케일 조정 */
+/* ========================================= */
+
+/* 1920px보다 작은 화면에서 전체 축소 */
+@media (max-width: 1920px) {
+    .home-screen {
+        transform: scale(calc(100vw / 1920px));
+        transform-origin: top left;
+        margin-left: 0;
+    }
+}
+
+/* 매우 작은 화면 (모바일) */
+@media (max-width: 768px) {
+    .home-screen {
+        transform: scale(0.4);
+        transform-origin: top left;
+    }
+}
+
+
+
+
+
+

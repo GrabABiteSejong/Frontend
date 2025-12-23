@@ -1,6 +1,6 @@
 import { http } from '@services/http';
-import { ApiResponse } from '@types/api';
-import {
+import type { ApiResponse } from '../../../types/api';
+import type {
   Roadmap,
   RoadmapGenerateRequest,
   RoadmapGenerateResponse,

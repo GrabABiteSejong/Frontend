@@ -1,6 +1,6 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { roadmapApi } from '../api/roadmap.api';
-import { RoadmapGenerateRequest, Roadmap } from '../types/roadmap';
+import type { RoadmapGenerateRequest, Roadmap } from '../types/roadmap';
 
 const QUERY_KEYS = {
   roadmaps: ['roadmaps'] as const,

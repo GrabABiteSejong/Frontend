@@ -1,18 +1,16 @@
 import { useCallback } from 'react';
 import ReactFlow, {
-  Node,
-  Edge,
   Background,
   Controls,
   MiniMap,
   useNodesState,
   useEdgesState,
   addEdge,
-  Connection,
   BackgroundVariant,
 } from 'reactflow';
+import type { Node, Edge, Connection, NodeChange, EdgeChange } from 'reactflow';
 import 'reactflow/dist/style.css';
-import { RoadmapNode, RoadmapEdge } from '../types/roadmap';
+import type { RoadmapNode, RoadmapEdge } from '../types/roadmap';
 
 interface RoadmapCanvasProps {
   nodes: RoadmapNode[];
@@ -59,7 +57,7 @@ export function RoadmapCanvas({
   onEdgesChange,
   readOnly = false,
 }: RoadmapCanvasProps) {
-  const [nodes, setNodes, handleNodesChange] = useNodesState(
+  const [nodes, , handleNodesChange] = useNodesState(
     initialNodes as Node[]
   );
   const [edges, setEdges, handleEdgesChange] = useEdgesState(
@@ -77,7 +75,7 @@ export function RoadmapCanvas({
   );
 
   const onNodesChangeHandler = useCallback(
-    (changes: any) => {
+    (changes: NodeChange[]) => {
       handleNodesChange(changes);
       if (!readOnly && onNodesChange) {
         setTimeout(() => {
@@ -89,7 +87,7 @@ export function RoadmapCanvas({
   );
 
   const onEdgesChangeHandler = useCallback(
-    (changes: any) => {
+    (changes: EdgeChange[]) => {
       handleEdgesChange(changes);
       if (!readOnly && onEdgesChange) {
         setTimeout(() => {

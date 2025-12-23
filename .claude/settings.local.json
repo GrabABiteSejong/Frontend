@@ -4,7 +4,13 @@
       "Bash(npm install:*)",
       "Bash(ls:*)",
       "Bash(git config:*)",
-      "Bash(gh auth status:*)"
+      "Bash(gh auth status:*)",
+      "Bash(git push:*)",
+      "Bash(git fetch:*)",
+      "Bash(git pull:*)",
+      "Bash(git add:*)",
+      "Bash(git commit:*)",
+      "Bash(npm run dev:*)"
     ]
   }
 }
