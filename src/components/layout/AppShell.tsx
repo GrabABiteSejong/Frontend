@@ -9,6 +9,10 @@ interface AppShellProps {
 export function AppShell({ children }: AppShellProps) {
     const location = useLocation();
     const isHomePage = location.pathname === '/';
+    const isRoadmapPage = location.pathname === '/roadmap';
+
+    // 홈페이지와 로드맵 페이지에서는 자체 상단바 사용
+    const hideHeader = isHomePage || isRoadmapPage;
 
     const navLinks = [
         { path: '/', label: '홈' },
@@ -17,8 +21,8 @@ export function AppShell({ children }: AppShellProps) {
 
     return (
         <div className="min-h-screen bg-gray-50">
-            {/* 홈페이지가 아닐 때만 헤더 표시 */}
-            {!isHomePage && (
+            {/* 홈페이지와 로드맵 페이지가 아닐 때만 헤더 표시 */}
+            {!hideHeader && (
                 <header className="bg-white shadow-sm">
                     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                         <div className="flex justify-between items-center h-16">
@@ -47,13 +51,13 @@ export function AppShell({ children }: AppShellProps) {
                 </header>
             )}
 
-            {/* 홈페이지일 때는 padding 제거 */}
-            <main className={!isHomePage ? "max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8" : ""}>
+            {/* 홈페이지와 로드맵 페이지일 때는 padding 제거 */}
+            <main className={!hideHeader ? "max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8" : ""}>
                 {children}
             </main>
 
-            {/* 홈페이지가 아닐 때만 푸터 표시 */}
-            {!isHomePage && (
+            {/* 홈페이지와 로드맵 페이지가 아닐 때만 푸터 표시 */}
+            {!hideHeader && (
                 <footer className="bg-white border-t mt-auto">
                     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
                         <p className="text-center text-sm text-gray-500">{env.appDescription}</p>
