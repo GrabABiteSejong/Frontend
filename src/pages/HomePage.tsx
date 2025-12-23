@@ -34,30 +34,6 @@ export function HomePage() {
                 수강과 선택을 반복하며 막연한 불안을 느끼고 있습니다.
             </p>
 
-            {/* 관련 통계 자료 간단히 (임시 박스) */}
-            <div className="placeholder-box statistics-box">
-                <div className="placeholder-bg" />
-                <div className="placeholder-text">관련 통계 자료 간단히</div>
-            </div>
-
-            {/* 웹 소개 (임시 박스) */}
-            <div className="placeholder-box intro-box">
-                <div className="placeholder-bg" />
-                <div className="placeholder-text">웹 소개</div>
-            </div>
-
-            {/* 캐릭터 소개 (임시 박스) */}
-            <div className="placeholder-box character-intro-box">
-                <div className="placeholder-bg" />
-                <div className="placeholder-text">캐릭터 소개</div>
-            </div>
-
-            {/* 푸터 (임시 박스) */}
-            <div className="placeholder-box footer-box">
-                <div className="placeholder-bg footer-bg" />
-                <div className="placeholder-text footer-text">푸터</div>
-            </div>
-
             {/*/!* 작은 원형 캐릭터 (클릭 가능) *!/*/}
             {/*<img*/}
             {/*    className="character-small clickable"*/}
