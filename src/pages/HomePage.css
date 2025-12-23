@@ -32,12 +32,8 @@
     width: 1920px;
 }
 
-/* ========================================= */
-/* 헤더 스타일 (현재 AppShell.css에서 공통으로 사용) */
-/* ========================================= */
-
-/* 상단 바 - 사용 안함 (AppShell에서 공통 헤더 사용) */
-/* .top-bar {
+/* 상단 바 */
+.top-bar {
     background-color: #000000;
     height: 100px;
     left: 0;
@@ -45,10 +41,10 @@
     top: 0;
     width: 1920px;
     z-index: 10;
-} */
+}
 
-/* 로고 텍스트 - 사용 안함 (AppShell에서 공통 헤더 사용) */
-/* .logo-text {
+/* 로고 텍스트 */
+.logo-text {
     color: #c7ff6b;
     font-family: "RixInooAriDuri_Pro-Regular", Helvetica, sans-serif;
     font-size: 40px;
@@ -59,8 +55,9 @@
     position: absolute;
     top: 11px;
     white-space: nowrap;
-    z-index: 20;
-} */
+    z-index: 50; /* 다른 오버레이보다 높은 숫자로 설정 */
+    cursor: pointer; /* 마우스 올렸을 때 손가락 모양 */
+}
 
 /* 메인 타이틀 */
 .main-title {
@@ -97,8 +94,8 @@
     z-index: 5;
 }
 
-/* 네비게이션 버튼 - 사용 안함 (AppShell에서 공통 헤더 사용) */
-/* .nav-button {
+/* 네비게이션 버튼 공통 스타일 */
+.nav-button {
     color: #ffffff;
     font-family: "Pretendard-Medium", Helvetica, sans-serif;
     font-size: 28px;
@@ -125,34 +122,40 @@
     transform: scale(0.95);
 }
 
+/* 진로 로드맵 버튼 */
 .roadmap-button {
     left: 1388px;
 }
 
+/* 전공 소개 버튼 */
 .major-button {
     left: 1698px;
-} */
+}
 
 /* 큰 캐릭터 이미지 */
 .character-large {
-    aspect-ratio: 0.67;
-    height: 781px;
-    left: 1289px;
-    object-fit: cover;
     position: absolute;
-    top: 267px;
-    width: 521px;
+    top: 342px;         /* ✅ decoration-vector와 시작 높이 맞춤 (원래 267px) */
+    left: 110px;        /* ✅ 유지 */
+    height: 640px;      /* ✅ 줄임 (원래 781px) */
+    width: 427px;       /* ✅ 비율 맞춤 */
+    object-fit: cover;
     z-index: 5;
 }
 
 /* 장식 벡터 */
 .decoration-vector {
-    height: 739px;
-    left: 86px;
     position: absolute;
-    top: 342px;
+    top: 400px;
     width: 1671px;
+    height: 739px;
+    right: 120px;   /* ✅ left 86의 대칭 */
+    left: auto;    /* ✅ left 제거 */
     z-index: 1;
+
+    pointer-events: none;
+    transform: scaleX(-1);
+    transform-origin: center;
 }
 
 /* 섹션 타이틀 (BACKGROUND) */
@@ -275,15 +278,6 @@
     width: 947px;
 }
 
-/* 작은 원형 캐릭터 (클릭 가능) */
-.character-small {
-    height: 118px;
-    left: 120px;
-    position: absolute;
-    top: 886px;
-    width: 118px;
-    z-index: 10;
-}
 
 .clickable {
     cursor: pointer;
@@ -347,7 +341,6 @@
         transform-origin: top left;
     }
 }
-
 
 
 
