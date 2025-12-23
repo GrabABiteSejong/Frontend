@@ -1,20 +1,6 @@
-import { useNavigate } from 'react-router-dom';
-
 import './HomePage.css';
 
 export function HomePage() {
-    const navigate = useNavigate();
-
-    const handleRoadmapClick = () => {
-        navigate('/roadmap');
-    };
-
-    const handleMajorIntroClick = () => {
-        // 전공 소개 페이지로 이동 (아직 미구현이면 추후 구현)
-        console.log('전공 소개 클릭');
-        // navigate('/major-intro'); // 페이지 준비되면 활성화
-    };
-
     const handleCharacterClick = () => {
         // 캐릭터 클릭 시 동작 (예: 애니메이션, 페이지 이동 등)
         console.log('캐릭터 클릭');
@@ -28,33 +14,11 @@ export function HomePage() {
             {/* 그라데이션 오버레이 */}
             <div className="gradient-overlay" />
 
-            {/* 상단 바 */}
-            <div className="top-bar" />
-
-            {/* 로고 텍스트 */}
-            <div className="logo-text">Please My Major</div>
-
             {/* 메인 타이틀 */}
             <div className="main-title">Please My Major !</div>
 
             {/* 서브타이틀 */}
             <p className="subtitle">당신의 진로 안내 도우미, Please My Major.</p>
-
-            {/* 진로 로드맵 버튼 (클릭 가능) */}
-            <button
-                className="nav-button roadmap-button"
-                onClick={handleRoadmapClick}
-            >
-                진로 로드맵
-            </button>
-
-            {/* 전공 소개 버튼 (클릭 가능) */}
-            <button
-                className="nav-button major-button"
-                onClick={handleMajorIntroClick}
-            >
-                전공 소개
-            </button>
 
             {/* 큰 캐릭터 이미지 */}
             <img className="character-large" alt="Character" src="/images/1.png" />

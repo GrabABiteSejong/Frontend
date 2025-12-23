@@ -32,8 +32,12 @@
     width: 1920px;
 }
 
-/* 상단 바 */
-.roadmap-top-bar {
+/* ========================================= */
+/* 헤더 스타일 (현재 AppShell.css에서 공통으로 사용) */
+/* ========================================= */
+
+/* 상단 바 - 사용 안함 (AppShell에서 공통 헤더 사용) */
+/* .roadmap-top-bar {
     background-color: #000000;
     height: 100px;
     left: 0;
@@ -41,10 +45,10 @@
     top: 0;
     width: 1920px;
     z-index: 10;
-}
+} */
 
-/* 로고 텍스트 */
-.roadmap-logo-text {
+/* 로고 텍스트 - 사용 안함 (AppShell에서 공통 헤더 사용) */
+/* .roadmap-logo-text {
     color: #c7ff6b;
     font-family: "RixInooAriDuri_Pro-Regular", Helvetica, sans-serif;
     font-size: 40px;
@@ -56,10 +60,10 @@
     top: 11px;
     white-space: nowrap;
     z-index: 20;
-}
+} */
 
-/* 네비게이션 버튼 공통 스타일 */
-.roadmap-nav-button {
+/* 네비게이션 버튼 - 사용 안함 (AppShell에서 공통 헤더 사용) */
+/* .roadmap-nav-button {
     font-family: "Pretendard-Medium", Helvetica, sans-serif;
     font-size: 28px;
     font-weight: 500;
@@ -76,7 +80,6 @@
     z-index: 20;
 }
 
-/* 진로 로드맵 버튼 (활성화 상태) */
 .roadmap-nav-active {
     color: #c7ff6b;
     font-family: "Pretendard-Bold", Helvetica, sans-serif;
@@ -84,7 +87,6 @@
     left: 1389px;
 }
 
-/* 전공 소개 버튼 */
 .roadmap-nav-major {
     color: #ffffff;
     left: 1698px;
@@ -97,7 +99,7 @@
 
 .roadmap-nav-major:active {
     transform: scale(0.95);
-}
+} */
 
 /* 메인 텍스트 */
 .roadmap-main-text {

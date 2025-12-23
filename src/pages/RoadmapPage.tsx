@@ -49,11 +49,6 @@ export function RoadmapPage() {
         };
     }, []);
 
-    const handleMajorIntroClick = () => {
-        console.log('전공 소개 클릭');
-        // navigate('/major-intro'); // 페이지 준비되면 활성화
-    };
-
     const handleCharacterClick = () => {
         console.log('캐릭터 클릭');
     };
@@ -109,8 +104,8 @@ export function RoadmapPage() {
                 console.log('입학예정 - 선택된 계열:', selectedMajor);
                 console.log('입학예정 - 선택된 세부 전공:', selectedDetailMajor);
                 console.log('입학예정 - 관심 분야:', interestInput);
-                // 다음 단계로 이동
-                // navigate('/next-step');
+                // 결과 페이지로 이동
+                navigate('/roadmap-result');
             } else if (selectedStatus === '재학' && selectedGrade === '1학년' && selectedMajorDecision) {
                 // 1학년: 5단계로 이동 (전공/계열 입력)
                 setIsTransitioning(true);
@@ -130,8 +125,8 @@ export function RoadmapPage() {
             if (selectedStatus === '재학' && selectedGrade === '1학년' && interestInput.trim()) {
                 console.log('1학년 - 선택된 전공 결정 상태:', selectedMajorDecision);
                 console.log('1학년 - 입력한 전공/계열:', interestInput);
-                // 다음 단계로 이동
-                // navigate('/next-step');
+                // 결과 페이지로 이동
+                navigate('/roadmap-result');
             } else if (selectedStatus === '재학' && selectedGrade !== '1학년' && selectedDetailMajor) {
                 // 2/3/4학년: 5단계 -> 6단계 전환 (관심 분야 입력)
                 setIsTransitioning(true);
@@ -144,8 +139,8 @@ export function RoadmapPage() {
             console.log('선택된 계열:', selectedMajor);
             console.log('선택된 세부 전공:', selectedDetailMajor);
             console.log('관심 분야:', interestInput);
-            // 다음 단계로 이동
-            // navigate('/next-step');
+            // 결과 페이지로 이동
+            navigate('/roadmap-result');
         }
     };
 
@@ -184,25 +179,6 @@ export function RoadmapPage() {
 
             {/* 그라데이션 오버레이 */}
             <div className="roadmap-gradient-overlay" />
-
-            {/* 상단 바 */}
-            <div className="roadmap-top-bar" />
-
-            {/* 로고 텍스트 */}
-            <div className="roadmap-logo-text">Please My Major</div>
-
-            {/* 진로 로드맵 버튼 (현재 페이지 - 활성화 상태) */}
-            <div className="roadmap-nav-button roadmap-nav-active">
-                진로 로드맵
-            </div>
-
-            {/* 전공 소개 버튼 */}
-            <button
-                className="roadmap-nav-button roadmap-nav-major"
-                onClick={handleMajorIntroClick}
-            >
-                전공 소개
-            </button>
 
             {/* 메인 텍스트 - 단계별 변경 */}
             <div className={`roadmap-main-text ${showIntermediateText ? 'fade-out' : ''}`}>
