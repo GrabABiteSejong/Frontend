@@ -214,7 +214,8 @@
 /* 페이드 인 애니메이션 */
 .fade-in {
     opacity: 1 !important;
-    visibility: visible;
+    visibility: visible !important;
+    pointer-events: auto !important;
     transition: opacity 0.8s ease-in-out 0.3s, visibility 0.8s ease-in-out 0.3s;
 }
 
@@ -224,13 +225,13 @@
     font-family: "Pretendard-Bold", Helvetica, sans-serif;
     font-size: 44px;
     font-weight: 700;
-    left: calc(50% - 295px);
+    left: 50%;
+    transform: translateX(-50%);
     letter-spacing: -0.88px;
     line-height: 79.6px;
     position: absolute;
     text-align: center;
     top: 187px;
-    white-space: nowrap;
     z-index: 5;
     opacity: 0;
     visibility: hidden;
@@ -341,4 +342,93 @@
     background: rgba(255, 255, 255, 0.20);
     transform: none;
     box-shadow: none;
+}
+
+/* ========================================= */
+/* 파일 업로드 UI */
+/* ========================================= */
+
+.file-upload-container {
+    position: absolute;
+    left: 50%;
+    top: 55%;
+    transform: translate(-50%, -50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 30px;
+    z-index: 10;
+    opacity: 0;
+    visibility: hidden;
+}
+
+.file-upload-box {
+    width: 550px;
+    height: 300px;
+    background: rgba(255, 255, 255, 0.15);
+    border-radius: 20px;
+    border: 2px dashed white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.file-upload-box:hover {
+    background: rgba(255, 255, 255, 0.25);
+    border-color: #c7ff6b;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+.file-upload-placeholder {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+    color: white;
+    text-align: center;
+}
+
+.file-upload-placeholder p {
+    margin: 0;
+    font-family: "Pretendard-Medium", Helvetica, sans-serif;
+    font-size: 24px;
+    font-weight: 500;
+}
+
+.file-hint {
+    font-size: 18px !important;
+    color: rgba(255, 255, 255, 0.7);
+    font-weight: 400 !important;
+}
+
+.file-uploaded {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+    color: #c7ff6b;
+    text-align: center;
+}
+
+.file-name {
+    margin: 0;
+    font-family: "Pretendard-Medium", Helvetica, sans-serif;
+    font-size: 22px;
+    font-weight: 500;
+    color: white;
+    max-width: 450px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.file-size {
+    margin: 0;
+    font-family: "Pretendard-Medium", Helvetica, sans-serif;
+    font-size: 18px;
+    font-weight: 400;
+    color: rgba(255, 255, 255, 0.7);
 }
