@@ -21,8 +21,6 @@ export function HomePage() {
             {/* 장식 벡터 */}
             <img className="decoration-vector" alt="Vector" src="/images/vector-1.png" />
 
-            {/* BACKGROUND 섹션 */}
-            <div className="section-title">BACKGROUND</div>
 
             <p className="section-main-text">
                 나의 현재 대학생활에 알맞는 진로를 찾고 싶어요.
